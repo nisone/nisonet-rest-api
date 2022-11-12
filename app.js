@@ -23,7 +23,11 @@ app.use(bodyParser.json({extended: false}));
 app.disable('x-powered-by');
 
 app.get('/', (req, res) => {
-    testFirebase().then(() => {console.log('firebase test completed')}).catch((e) => {console.log('firebase test failed')});
+    testFirebase().then(() => {
+        console.log('firebase connection test successful!');
+    }).catch((e) => {
+        console.log('firebase connection test failed!');
+    });
     res.status(200).json({
         "message" : "welcome"
     });
