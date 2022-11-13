@@ -79,7 +79,7 @@ async function createPayment(req, res) {
     }).catch((error) => {
         // console.log(error);
         return res.status(400).json({
-            "message": error.message
+            "message": `CATCH: ${error.message}`
         });
     });
 }
