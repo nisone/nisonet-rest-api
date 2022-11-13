@@ -40,6 +40,7 @@ async function createPayment(req, res) {
         transaction_charge = 2000;
     }
 
+    console.log('connecting to payment gateway');
     // console.log(`paystack charge: ${transaction_charge}`);
     axios.post('https://api.paystack.co/transaction/initialize', {
         "email" : data.email,
@@ -58,7 +59,7 @@ async function createPayment(req, res) {
                 "message": "error communicating with payment services"
             });
         }
-
+        console.log('logging payment record');
         const docRef = db.collection('payment').doc(response.data.data.reference);
 
         await docRef.set({
@@ -70,7 +71,7 @@ async function createPayment(req, res) {
             createdAt: Timestamp.now(),
             updatedAt: Timestamp.now()
         });
-
+        console.log('payment recorded');
         return res.status(200).json({
             "message" : "transaction initialized",
             "reference" : response.data.data.reference,
