@@ -27,12 +27,13 @@ async function createPayment(req, res) {
 
     if(error.length > 0) {
         console.log(data);
-        return res.status(400).json({message: 'payment can\'t be initialized',error: error});
+        return res.status(400).json({message: 'payment initialization error',error: error});
     }
 
-    var transaction_charge = data.amount * 0.015
+    var transaction_charge = data.amount * 0.015;
+    transaction_charge += data.amount * 0.075;
     if(data.amount > 2500){
-        transaction_charge += 100
+        transaction_charge += 100;
     }
 
     if(transaction_charge > 2000) {
@@ -43,11 +44,12 @@ async function createPayment(req, res) {
     axios.post('https://api.paystack.co/transaction/initialize', {
         "email" : data.email,
         "amount" : (data.amount + transaction_charge) * 100,
-        "subaccount" : process.env.ENVIRONMENT == 'production' ? 'ACCT_txmkyg2d0nc3g75' : 'ACCT_8bib3eyb12qg2hb',
-        "transaction_charge" : transaction_charge * 100,
-        "bearer" : "account",
+        // "subaccount" : process.env.ENVIRONMENT == 'production' ? 'ACCT_txmkyg2d0nc3g75' : 'ACCT_8bib3eyb12qg2hb',
+        // "transaction_charge" : transaction_charge * 100,
+        // "bearer" : "account",
         "metadata": data.metadata,
-        "callback": `${data.uid}`
+        "channels": ["bank_transfer", "card"],
+        // "callback": `${data.uid}`
     }, {
         headers: headers
     }).then(async (response) => {
