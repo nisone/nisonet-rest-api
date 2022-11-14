@@ -49,7 +49,7 @@ router.post("/test/transaction/verify", function(req, res) {
 const updatePaymentStatus = async (data) => {
     const reference = data.reference;
     const amount = data.amount;
-    const meta = data.meta;
+    const metadata = data.metadata;
     const authorization = data.authorization 
     try {
         const batch = db.batch();
@@ -60,8 +60,10 @@ const updatePaymentStatus = async (data) => {
             updatedAt: Timestamp.now()
         });
 
+        console.log('Fetching user data');
+        console.log(metadata.uid);
         const customerSnapshot = await db.collection('users')
-            .doc(paymentSnapshot.get('uid')).get();
+            .doc(metadata.uid).get();
             customerSnapshot.ref.update({
                 credit: customerSnapshot.get(credit) + paymentSnapshot.get('amount')
             });
