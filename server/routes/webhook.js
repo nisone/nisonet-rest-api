@@ -5,6 +5,7 @@ const router = express.Router();
 
 var crypto = require('crypto');
 const { default: axios } = require('axios');
+const { Timestamp } = require('firebase-admin/firestore');
 var secret = process.env.PAYSTACK_LIVE_SK;
 // Using Express
 router.post("/transaction/verify", function(req, res) {
@@ -59,7 +60,7 @@ const updatePaymentStatus = async (data) => {
             updatedAt: Timestamp.now()
         });
 
-        const customerSnapshot = await db.collection('customer')
+        const customerSnapshot = await db.collection('users')
             .doc(paymentSnapshot.get('uid')).get();
             customerSnapshot.ref.update({
                 credit: customerSnapshot.get(credit) + paymentSnapshot.get('amount')
