@@ -55,7 +55,7 @@ const updatePaymentStatus = async (data) => {
         const batch = db.batch();
 
         const paymentSnapshot = await db.collection('payment').doc(reference).get();
-        paymentSnapshot.ref.update({
+        await paymentSnapshot.ref.update({
             status: 'success',
             updatedAt: Timestamp.now()
         });
@@ -68,7 +68,7 @@ const updatePaymentStatus = async (data) => {
         var paymentAmount = paymentSnapshot.get('amount');
         var newCreditBalance = creditBalance + paymentAmount;
         console.log(newCreditBalance);
-        customerSnapshot.ref.update({
+        await customerSnapshot.ref.update({
             credit: newCreditBalance,
             updated_at: Timestamp.now()
         });
