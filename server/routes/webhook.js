@@ -63,10 +63,15 @@ const updatePaymentStatus = async (data) => {
         console.log('Fetching user data');
         console.log(metadata.uid);
         const customerSnapshot = await db.collection('users').doc(metadata.uid).get();
-            customerSnapshot.ref.update({
-                credit: (customerSnapshot.get('credit') + paymentSnapshot.get('amount')),
-                updated_at: Timestamp.now()
-            });
+
+        var creditBalance = customerSnapshot.get('credit');
+        var paymentAmount = paymentSnapshot.get('amount');
+        var newCreditBalance = creditBalance + paymentAmount;
+        console.log(newCreditBalance);
+        customerSnapshot.ref.update({
+            credit: newCreditBalance,
+            updated_at: Timestamp.now()
+        });
     
         await batch.commit();
     } catch (error) {
