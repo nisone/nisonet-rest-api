@@ -48,9 +48,9 @@ router.post("/test/transaction/verify", function(req, res) {
 
 const updatePaymentStatus = async (data) => {
     const reference = data.reference;
-    const amount = data.amount;
+    // const amount = data.amount;
     const metadata = data.metadata;
-    const authorization = data.authorization 
+    // const authorization = data.authorization;
     try {
         const batch = db.batch();
 
