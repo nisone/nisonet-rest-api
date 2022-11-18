@@ -6,11 +6,9 @@ const router = express.Router();
 var crypto = require('crypto');
 const { default: axios } = require('axios');
 const { Timestamp } = require('firebase-admin/firestore');
-var secret = process.env.ENVIRONMENT == 'production' 
-? process.env.PAYSTACK_LIVE_SK : process.env.PAYSTACK_TEST_SK;
 // Using Express
 router.post("/transaction/verify", function(req, res) {
-    const hash = crypto.createHmac('sha512', secret).update(JSON.stringify(req.body)).digest('hex');
+    const hash = crypto.createHmac('sha512', process.env.PAYSTACK_LIVE_SK).update(JSON.stringify(req.body)).digest('hex');
     if (hash != req.headers['x-paystack-signature']) {
         return res.sendStatus(403);
     }
@@ -29,8 +27,8 @@ router.post("/transaction/verify", function(req, res) {
 });
 
 router.post("/test/transaction/verify", function(req, res) {
-    const hash = crypto.createHmac('sha512', secret).update(JSON.stringify(req.body)).digest('hex');
-    if (hash == req.headers['x-paystack-signature']) {
+    const hash = crypto.createHmac('sha512', process.env.PAYSTACK_TEST_SK).update(JSON.stringify(req.body)).digest('hex');
+    if (hash != req.headers['x-paystack-signature']) {
         return res.sendStatus(403);
     }
     const event = req.body;
