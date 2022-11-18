@@ -9,6 +9,7 @@ const webhook = require('./server/routes/webhook.js');
 const usersRoute = require('./server/routes/users.js');
 const paymentRoute = require('./server/routes/payment.js');
 const notification = require('./server/routes/notification.js');
+const vtuRoute = require('./server/routes/vtu.js');
 const { testFirebase } = require('./server/db/conn.js');
 
 const app =  express();
@@ -41,6 +42,7 @@ app.use('/notification', notification);
 app.use('/webhook', webhook);
 app.use('/payment', paymentRoute);
 app.use('/user', usersRoute);
+app.use('/vtu', vtuRoute);
 
 app.listen(port,() => {
     console.log(`App listening on port: ${port}`);

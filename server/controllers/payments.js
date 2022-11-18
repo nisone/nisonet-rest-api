@@ -31,7 +31,7 @@ async function createPayment(req, res) {
     }
 
     var transaction_charge = data.amount * 0.015;
-    transaction_charge += data.amount * 0.075;
+    // transaction_charge += data.amount * 0.075;
     if(data.amount > 2500){
         transaction_charge += 100;
     }
@@ -50,7 +50,7 @@ async function createPayment(req, res) {
         // "bearer" : "account",
         "metadata": data.metadata,
         "channels": ["bank_transfer", "card"],
-        // "callback": `${data.uid}`
+        "callback_url": "https://nisonet.cyclic.app/payment/callback"
     }, {
         headers: headers
     }).then(async (response) => {
@@ -125,10 +125,57 @@ async function verifyPayment(req, res) {
     });
 }
 
+async function paymentCallback(req, res) {
+    var reference = req.query.reference;
+    axios.get(`https://api.paystack.co/transaction/verify/${reference}`, {
+        headers: headers
+    }).then(async (response) => {
+        if(!response.data.status){
+            return res.status(400).json({
+                "message": "error communicating with payment services"
+            });
+        }
+
+        if(response.data.data.status != "success"){
+            return res.status(400).json({
+                "status" : response.data.data.status,
+                "message": "transaction verification failed"
+            });
+        }
+        const userDocument = await db.collection('users').doc(response.data.data.metadata.uid).get();
+        var creditBalance = Number(userDocument.get('credit')) + Number(response.data.data.metadata.amount);
+        const batch = db.batch();
+
+        const snapshot = await db.collection('payment').doc(reference).get();
+        console.log('Updating payment');
+        snapshot.ref.update({
+            status: 'success',
+            updatedAt: Timestamp.now()
+        });
+        console.log('Updating credit balance');
+        userDocument.ref.update({
+            credit: creditBalance,
+            updated_at: Timestamp.now(),
+        });
+    
+        batch.commit();  // Here we return the Promise returned by commit()
+
+        return res.status(200).json({
+            "message" : "transaction verified",
+            "status" : response.data.data.status
+        });
+    }).catch((error) => {
+        console.log(error);
+        return res.status(400).json({
+            "message": error.message
+        });
+    });
+}
+
 async function charge(req, res) {
     // Todo: implement charge endpoint
 
     res.sendStatus(404);
 }
 
-module.exports = {createPayment, verifyPayment, charge}
+module.exports = {createPayment, paymentCallback, verifyPayment, charge}
