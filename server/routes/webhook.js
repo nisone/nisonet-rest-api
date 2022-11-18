@@ -6,7 +6,8 @@ const router = express.Router();
 var crypto = require('crypto');
 const { default: axios } = require('axios');
 const { Timestamp } = require('firebase-admin/firestore');
-var secret = process.env.PAYSTACK_LIVE_SK;
+var secret = process.env.ENVIRONMENT == 'production' 
+? process.env.PAYSTACK_LIVE_SK : process.env.PAYSTACK_TEST_SK;
 // Using Express
 router.post("/transaction/verify", function(req, res) {
     const hash = crypto.createHmac('sha512', secret).update(JSON.stringify(req.body)).digest('hex');
