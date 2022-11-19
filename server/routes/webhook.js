@@ -45,6 +45,12 @@ router.post("/test/transaction/verify", function(req, res) {
     res.sendStatus(200);
 });
 
+router.post("/vtu", function(req, res) {
+    const event = req.body;
+    console.log(event);
+    res.sendStatus(200);
+});
+
 const updatePaymentStatus = async (data) => {
     const reference = data.reference;
     // const amount = data.amount;
