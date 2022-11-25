@@ -13,6 +13,20 @@ router.post("/transaction/verify", function(req, res) {
         return res.sendStatus(403);
     }
     const event = req.body;
+    if(req.body.data.metadata.app == 'kdyef'){
+        axios.get(`https://kaduna-youths.cyclic.app/payment/verify?reference=${req.body.data.reference}`)
+        .then((response) => {
+            console.log(response.data);
+        })
+        .catch((error) => {
+            console.log({
+                "app" : req.body.data.metadata.app,
+                "message" : error.message,
+                "data" : error.response.data
+            });
+        });
+        return res.sendStatus(200);
+    }
     if(req.body.event == 'charge.success'){
         updatePaymentStatus(req.body.data)
         .then(() => {
@@ -32,6 +46,20 @@ router.post("/test/transaction/verify", function(req, res) {
         return res.sendStatus(403);
     }
     const event = req.body;
+    if(req.body.data.metadata.app == 'kdyef'){
+        axios.get(`https://kaduna-youths.cyclic.app/payment/verify?reference=${req.body.data.reference}`)
+        .then((response) => {
+            console.log(response.data);
+        })
+        .catch((error) => {
+            console.log({
+                "app" : req.body.data.metadata.app,
+                "message" : error.message,
+                "data" : error.response.data
+            });
+        });
+        return res.sendStatus(200);
+    }
     if(req.body.event == 'charge.success'){
         updatePaymentStatus(req.body.data)
         .then(() => {
