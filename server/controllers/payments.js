@@ -49,7 +49,7 @@ async function createPayment(req, res) {
         // "transaction_charge" : transaction_charge * 100,
         // "bearer" : "account",
         "metadata": data.metadata,
-        "channels": ["bank_transfer", "card"],
+        "channels": ["card"],
         "callback_url": "https://nisonet.cyclic.app/payment/callback"
     }, {
         headers: headers
