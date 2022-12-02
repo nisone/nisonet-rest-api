@@ -36,8 +36,8 @@ async function createPayment(req, res) {
         transaction_charge += 100;
     }
 
-    if(transaction_charge > 2000) {
-        transaction_charge = 2000;
+    if(transaction_charge < 50){
+        transaction_charge = 50;
     }
 
     console.log('connecting to payment gateway');
