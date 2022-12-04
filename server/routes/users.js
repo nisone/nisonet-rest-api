@@ -1,20 +1,11 @@
+const {authMiddleWare} = require('../middlewares/auth.js');
 const express = require('express');
-const {
-    setUserBio,
-    setUserQualification, 
-    setUserSkills, 
-    updateUserBio, 
-    updateUserQualification, 
-    updateUserSkill
-} = require('../controllers/users.js');
+const { registerUser, updateUser, deleteUser } = require('../controllers/users.js');
 
 const router = express.Router();
 
-router.post('/bio', setUserBio);
-router.patch('/bio/:id', updateUserBio);
-router.post('/qualification', setUserQualification);
-router.patch('/qualification', updateUserQualification);
-router.post('/skill', setUserSkills);
-router.patch('/skill', updateUserSkill);
+router.post('/', registerUser);
+router.patch('/', authMiddleWare, updateUser);
+router.delete('/', authMiddleWare, deleteUser);
 
 module.exports = router;

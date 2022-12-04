@@ -126,7 +126,8 @@ async function verifyPayment(req, res) {
 }
 
 async function paymentCallback(req, res) {
-    var reference = req.query.reference;
+    var reference = req.query.reference || req.query.txref;
+
     axios.get(`https://api.paystack.co/transaction/verify/${reference}`, {
         headers: headers
     }).then(async (response) => {
@@ -139,7 +140,7 @@ async function paymentCallback(req, res) {
         if(response.data.data.status != "success"){
             return res.status(400).json({
                 "status" : response.data.data.status,
-                "message": "transaction verification failed"
+                "message": "transaction verification not successful"
             });
         }
         const userDocument = await db.collection('users').doc(response.data.data.metadata.uid).get();

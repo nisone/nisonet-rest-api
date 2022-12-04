@@ -1,0 +1,260 @@
+{
+    "networks": [
+        {
+            "name": "MTN",
+            "id": 1
+        },
+        {
+            "name": "GLO",
+            "id": 3
+        },
+        {
+            "name": "AIRTEL",
+            "id": 2
+        },
+        {
+            "name": "9MOBILE",
+            "id": 4
+        }
+    ],
+    "data_plans": [
+        {
+            "id": 1,
+            "network_id": 1,
+            "plan_network": "MTN",
+            "plan_type": "SME",
+            "plan": "500MB",
+            "plan_amount": 103.00,
+            "validity": "    1 Month"
+        },
+        {
+            "id": 2,
+            "network_id": 1,
+            "plan_network": "MTN",
+            "plan_type": "SME",
+            "plan": "1GB",
+            "plan_amount": 206.00,
+            "validity": "    1 Month"
+        },
+        {
+            "id": 3,
+            "network_id": 1,
+            "plan_network": "MTN",
+            "plan_type": "SME",
+            "plan": "2GB",
+            "plan_amount": 412.00,
+            "validity": "    1 Month"
+        },
+        {
+            "id": 4,
+            "network_id": 1,
+            "plan_network": "MTN",
+            "plan_type": "SME",
+            "plan": "3GB",
+            "plan_amount": 618.00,
+            "validity": "    1 Month"
+        },
+        {
+            "id": 5,
+            "network_id": 1,
+            "plan_network": "MTN",
+            "plan_type": "SME",
+            "plan": "5GB",
+            "plan_amount": 1030.00,
+            "validity": "1 Month"
+        },
+        {
+            "id": 6,
+            "network_id": 1,
+            "plan_network": "MTN",
+            "plan_type": "SME",
+            "plan": "10GB",
+            "plan_amount": 2060.00,
+            "validity": "1 Month"
+        },
+        {
+            "id": 20,
+            "network_id": 3,
+            "plan_network": "GLO",
+            "plan_type": "GIFTING",
+            "plan": "1.35GB",
+            "plan_amount": 425.00,
+            "validity": "    1 Month"
+        },
+        {
+            "id": 21,
+            "network_id": 3,
+            "plan_network": "GLO",
+            "plan_type": "GIFTING",
+            "plan": "2.9GB",
+            "plan_amount": 850.00,
+            "validity": "    1 Month"
+        },
+        {
+            "id": 22,
+            "network_id": 3,
+            "plan_network": "GLO",
+            "plan_type": "GIFTING",
+            "plan": "4.1GB",
+            "plan_amount": 1275.00,
+            "validity": "1 Month"
+        },
+        {
+            "id": 24,
+            "network_id": 3,
+            "plan_network": "GLO",
+            "plan_type": "GIFTING",
+            "plan": "5.8GB",
+            "plan_amount": 1700.00,
+            "validity": "1 Month"
+        },
+        {
+            "id": 36,
+            "network_id": 4,
+            "plan_network": "9MOBILE",
+            "plan_type": "GIFTING",
+            "plan": "1.5GB",
+            "plan_amount": 880.00,
+            "validity": "    1 Month"
+        },
+        {
+            "id": 37,
+            "network_id": 4,
+            "plan_network": "9MOBILE",
+            "plan_type": "GIFTING",
+            "plan": "2GB",
+            "plan_amount": 1000.00,
+            "validity": "1 Month"
+        },
+        {
+            "id": 38,
+            "network_id": 4,
+            "plan_network": "9MOBILE",
+            "plan_type": "GIFTING",
+            "plan": "3GB",
+            "plan_amount": 1300.00,
+            "validity": "1 Month"
+        },
+        {
+            "id": 39,
+            "network_id": 4,
+            "plan_network": "9MOBILE",
+            "plan_type": "GIFTING",
+            "plan": "4.5GB",
+            "plan_amount": 1750.00,
+            "validity": "1 Month"
+        },
+        {
+            "id": 46,
+            "network_id": 2,
+            "plan_network": "AIRTEL",
+            "plan_type": "COOPERATE GIFTING",
+            "plan": "500MB",
+            "plan_amount": 90.00,
+            "validity": "    1 Month"
+        },
+        {
+            "id": 47,
+            "network_id": 2,
+            "plan_network": "AIRTEL",
+            "plan_type": "COOPERATE GIFTING",
+            "plan": "1GB",
+            "plan_amount": 180.00,
+            "validity": "    1 Month"
+        },
+        {
+            "id": 48,
+            "plan_network": "AIRTEL",
+            "plan_type": "COOPERATE GIFTING",
+            "plan": "2GB",
+            "plan_amount": 360.00,
+            "validity": "    1 Month"
+        },
+        {
+            "id": 49,
+            "network_id": 2,
+            "plan_network": "AIRTEL",
+            "plan_type": "COOPERATE GIFTING",
+            "plan": "5GB",
+            "plan_amount": 900.00,
+            "validity": "    1 Month"
+        },
+        {
+            "id": 50,
+            "network_id": 1,
+            "plan_network": "MTN",
+            "plan_type": "COOPERATE GIFTING",
+            "plan": "500MB",
+            "plan_amount": 120.00,
+            "validity": "    1 Month"
+        },
+        {
+            "id": 51,
+            "network_id": 1,
+            "plan_network": "MTN",
+            "plan_type": "COOPERATE GIFTING",
+            "plan": "1GB",
+            "plan_amount": 233.00,
+            "validity": "    1 Month"
+        },
+        {
+            "id": 52,
+            "network_id": 1,
+            "plan_network": "MTN",
+            "plan_type": "COOPERATE GIFTING",
+            "plan": "2GB",
+            "plan_amount": 466.00,
+            "validity": "    1 Month"
+        },
+        {
+            "id": 53,
+            "network_id": 1,
+            "plan_network": "MTN",
+            "plan_type": "COOPERATE GIFTING",
+            "plan": "3GB",
+            "plan_amount": 699.00,
+            "validity": "    1 Month"
+        },
+        {
+            "id": 54,
+            "network_id": 1,
+            "plan_network": "MTN",
+            "plan_type": "COOPERATE GIFTING",
+            "plan": "5GB",
+            "plan_amount": 1165.00,
+            "validity": "1 Month"
+        },
+        {
+            "id": 55,
+            "network_id": 1,
+            "plan_network": "MTN",
+            "plan_type": "COOPERATE GIFTING",
+            "plan": "10GB",
+            "plan_amount": 2330.00,
+            "validity": "1 Month"
+        },
+        {
+            "id": 56,
+            "network_id": 2,
+            "plan_network": "AIRTEL",
+            "plan_type": "COOPERATE GIFTING",
+            "plan": "10GB",
+            "plan_amount": 1800.00,
+            "validity": "1 Month"
+        }
+    ],
+    "cable": [
+        {
+            "name": "DSTV",
+            "id": 2
+        },
+        {
+            "name": "GOTV",
+            "id": 1
+        },
+        {
+            "name": "STARTIME",
+            "id": 3
+        }
+    ]
+}

@@ -92,6 +92,12 @@ router.post("/vtu", function(req, res) {
     res.sendStatus(200);
 });
 
+router.post("/vtu/n3tdata", function(req, res) {
+    const event = req.body;
+    console.log(event);
+    res.sendStatus(200);
+});
+
 const updatePaymentStatus = async (data) => {
     const reference = data.reference;
     // const amount = data.amount;
