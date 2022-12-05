@@ -6,7 +6,7 @@ const plans = require('../data/n3tdata.json');
 const apiEndpoint = 'https://n3tdata.com/api';
 
 const headers = {
-    'Authorization': 'Token d13c4e02092e52c743cccb9dc8a5406adb3202e8',
+    'Authorization': `Token 188f68b43c7511fae98ef97bb574323ce0ab6d0d0fd1934147dd09aaa053`,
     'Content-Type': 'application/json'
 };
 
@@ -15,7 +15,14 @@ async function allPlans(req, res) {
 }
 
 async function airtimeTopup(req, res) {
-    axios.post(`${apiEndpoint}/topup`, {
+    axios.post(`${apiEndpoint}/topup`,{
+        'network' : req.body.network,
+        'phone' : req.body.mobile_number,
+        'plan_type' : 'VTU',
+        'bypass': req.body.portedNumber == undefined ? false : req.body.portedNumber,
+        'amount' : req.body.amount,
+        'request-id' : `airtime_${Date.now()}`
+    }, {
         headers: headers
     }).then(async (response) => {
         
@@ -26,7 +33,8 @@ async function airtimeTopup(req, res) {
     }).catch((error) => {
         console.log(error);
         return res.status(400).json({
-            "message": error.message
+            "message": error.message,
+            "data" : error.response.data
         });
     });
 }
@@ -50,10 +58,10 @@ async function purchaseData(req, res) {
                 "data" : response.data
             });
         }).catch((error) => {
-            console.error(error);
+            // console.error(error);
             return res.status(400).json({
                 "message": error.message,
-                "data": error
+                "data": error.response.data
             });
         });
     } catch (error) {

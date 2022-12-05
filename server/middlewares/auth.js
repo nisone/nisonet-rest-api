@@ -1,5 +1,6 @@
 const {admin} = require('../db/conn.js');
 const { getUserByUID } = require('../controllers/users.js');
+const { getUserProfile } = require('../models/users.js');
 
 const authMiddleWare = (req, res, next) => {
     console.log('Request URL:', req.originalUrl)
@@ -15,8 +16,11 @@ const authMiddleWare = (req, res, next) => {
 
         admin.auth().verifyIdToken(idToken)
         .then((decodedToken) => {
-            req.user = getUserByUID(decodedToken.uid);
-            return next();
+            getUserProfile(decodedToken.uid).then((user) => {
+                req.user = user;
+                return next();
+            });
+            
         })
         .catch(err => {
             console.error(err.message);

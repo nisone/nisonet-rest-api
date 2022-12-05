@@ -4,7 +4,7 @@ const {db} = require('../db/conn.js');
 
 const collectionRef = db.collection('users');
 
-async function getUserProfile(uid, displayName, email, phone, status) {
+async function getUserProfile(uid) {
     try {
         var userDoc = await collectionRef.doc(uid).get();
         console.log('User profile created! uid: ', uid);
