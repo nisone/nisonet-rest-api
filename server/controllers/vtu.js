@@ -6,7 +6,8 @@ const plans = require('../data/n3tdata.json');
 const apiEndpoint = 'https://n3tdata.com/api';
 
 const headers = {
-    'Authorization': `Token 188f68b43c7511fae98ef97bb574323ce0ab6d0d0fd1934147dd09aaa053`,
+    'Authorization' : `Token 188f68b43c7511fae98ef97bb574323ce0ab6d0d0fd1934147dd09aaa053`,
+    // 'Authorization': `Token 116fdc5312b3613d167484b674d3dfd256af330ef3241feb1707f0944d7a`,// 'Authorization': `Token 188f68b43c7511fae98ef97bb574323ce0ab6d0d0fd1934147dd09aaa053`,
     'Content-Type': 'application/json'
 };
 

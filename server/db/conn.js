@@ -9,7 +9,6 @@ const serviceAccount = JSON.parse(process.env.NISONET_FIREBASE_CONFIG);
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
 });
-
 // const kdyef = admin.initializeApp({
 //   credential: admin.credential.cert(KDYEFServiceAccount),
 // }, 'kdyef');
