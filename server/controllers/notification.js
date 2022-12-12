@@ -9,14 +9,18 @@ let headers = {
     "Accept": "application/json",
 };
 
-async function fcmSend(req, res) {
+async function fcmSendToTopic(req, res) {
+    var topic = req.body.topic || 'notification';
+    var title = req.body.title;
+    var body = req.body.body;
+
     admin.messaging().sendToTopic(
         // 'exnEOC3-SIquDXx1gU1orO:APA91bG_1oF4n72-LrWmqKwK4Qe0xxZ4f5sEqPU4kf0xeHS6QD2ZlY0s5whLN6ghVZCOReG7u6GmtQEWdc-TaBq-64Yeq2xuMkCyvV4rKlOZKN4guYCd8yfxl98k2me48R3ltx7CvkSC',
-        'update',
+        topic,
         {
             notification: {
-                'body': 'Eztop v1.1.0 now available',
-                'title': 'New update available!'
+                'body': body,
+                'title': title
             }
         }
     ).then((mds) => {
@@ -26,22 +30,35 @@ async function fcmSend(req, res) {
         console.error(err);
         res.sendStatus(400);
     });
-    // admin.messaging().sendToDevice(
-    //     'exnEOC3-SIquDXx1gU1orO:APA91bG_1oF4n72-LrWmqKwK4Qe0xxZ4f5sEqPU4kf0xeHS6QD2ZlY0s5whLN6ghVZCOReG7u6GmtQEWdc-TaBq-64Yeq2xuMkCyvV4rKlOZKN4guYCd8yfxl98k2me48R3ltx7CvkSC',
-    //     {
-    //         notification: {
-    //             'body' : 'Hello Eztop user',
-    //         'title' : 'Hello'
-    //         }
-    //     }
-    // ).then((mds) => {
-    //     console.log(mds);
-    //     res.sendStatus(200);
-    // }).catch(err => {
-    //     console.error(err);
-    //     res.sendStatus(400);
-    // });
 }
+
+async function fcmSendToDevice(req, res) {
+    var regToken = req.body.token;
+    var title = req.body.title || 'notification';
+    var body = req.body.body;
+    
+    if(regToken == undefined) {
+        return res.status(404).json({message: 'invalid device registration token'});
+    }
+
+    admin.messaging().sendToDevice(
+        regToken,
+        {
+            notification: {
+                'body': body,
+                'title': title
+            }
+        }
+    ).then((mds) => {
+        console.log(mds);
+        res.sendStatus(200);
+    }).catch(err => {
+        console.error(err);
+        res.sendStatus(400);
+    });
+}
+
+
 
 async function sendSmsNotification(req, res) {
     var phone = req.body.to;
@@ -82,4 +99,4 @@ async function sendSmsNotification(req, res) {
 }
 
 
-module.exports = { sendSmsNotification, fcmSend }
+module.exports = { sendSmsNotification, fcmSendToTopic, fcmSendToDevice }
