@@ -84,7 +84,7 @@ async function cableSubscription(req, res) {
           }, {
             headers: headers,
         }).then(async (response) => {
-            if(res.data.status == 'success'){
+            if(response.data.status == 'success'){
                 return res.status(201).json({
                     "status": true,
                     "message": "Cable subscription successful",
