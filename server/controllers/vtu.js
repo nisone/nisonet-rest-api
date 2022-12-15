@@ -73,31 +73,41 @@ async function purchaseData(req, res) {
 }
 
 async function cableSubscription(req, res) {
-    axios.post(`${apiEndpoint}/cablesub`, {
-        headers: headers
-    }).then(async (response) => {
-        if(response.status != 201){
-            return res.status(response.status).json({
-                "status": false,
-                "message": response.data.message
+    try {
+        validationResult(req).throw();
+        axios.post(`${apiEndpoint}/cablesub`,{
+            "cable": req.body.cable,
+            "iuc": req.body.iuc,
+            "cable_plan": req.body.plan,
+            "bypass": req.body.bypass == undefined ? false : req.body.bypass,
+            "request-id": `cable_${Date.now()}`
+          }, {
+            headers: headers,
+        }).then(async (response) => {
+            if(res.data.status == 'success'){
+                return res.status(201).json({
+                    "status": true,
+                    "message": "Cable subscription successful",
+                    "data" : response.data
+                });
+            }
+        }).catch((error) => {
+            if(error.code === "ENETUNREACH"){
+                return res.status(500).json({
+                    "message": error.message
+                });
+            }
+            return res.status(400).json({
+                "message": error.message,
+                "error": error.response.data
             });
-        }
-
-        return res.status(201).json({
-            "status": true,
-            "message": "Cable subscription successful"
         });
-    }).catch((error) => {
-        console.error(error.message);
-        if(error.code === "ENETUNREACH"){
-            return res.status(500).json({
-                "message": error.message
-            });
-        }
+    } catch (error) {
         return res.status(400).json({
-            "message": error.message
+            "error": error,
+            "message": "Oops! something breaks."
         });
-    });
+    }
 }
 
 async function getNetworks(req, res) {

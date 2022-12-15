@@ -258,6 +258,30 @@
         }
     ],
     "cable_plans" : [
-        
+        {"id" : 1 ,  "cable":"DSTV",	    "package":"DStv Padi","amount":2150},
+        {"id" : 2 ,  "cable":"DSTV",	    "package":"DSTV -YANGA","amount":2950},
+        {"id" : 9 ,  "cable":"DSTV",	    "package":"DStv Premium-Asia"	,"amount":23500},
+        {"id" : 10,  "cable":"DSTV",	    "package":"DStv Confam + ExtraView","amount":7115},
+        {"id" : 34,  "cable":"DSTV",	    "package":"Dstv Confam","amount":5300},
+        {"id" : 35,  "cable":"DSTV",	    "package":"DStv Compact","amount":9000},
+        {"id" : 36,  "cable":"DSTV",	    "package":"DStv Premium"	,"amount":21000},
+        {"id" : 37,  "cable":"DSTV",	    "package":"DStv Asia","amount":7100},
+        {"id" : 38,  "cable":"DSTV",	    "package":"DStv Compact Plus"	,"amount":14250},
+        {"id" : 43,  "cable":"DSTV",	    "package":"DStv Padi + ExtraView","amount":5050},
+        {"id" : 59,  "cable":"GOTV",	    "package":"GOtv Max","amount":4150},
+        {"id" : 60,  "cable":"GOTV",	    "package":"GOtv Jolli","amount":2800},
+        {"id" : 61,  "cable":"GOTV",	    "package":"GOtv Jinja","amount":1900},
+        {"id" : 62,  "cable":"GOTV",	    "package":"GOtv Smallie - monthly","amount":	900},
+        {"id" : 65,  "cable":"GOTV",	    "package":"GOtv Supa - monthly","amount":5500},
+        {"id" : 66,  "cable":"STARTIME",	"package":"Nova - 1 Month","amount":	900},
+        {"id" : 67,  "cable":"STARTIME",	"package":"Basic (Antenna) - 1 Month","amount":1850},
+        {"id" : 68,  "cable":"STARTIME",	"package":"Smart (Dish) -1 Month","amount":2600},
+        {"id" : 69,  "cable":"STARTIME",	"package":"Classic (Antenna) - 1 Month","amount":2750},
+        {"id" : 70,  "cable":"STARTIME",	"package":"Super (Dish) - 1 Month","amount":4900},
+        {"id" : 71,  "cable":"STARTIME",	"package":"Nova - 1 Week","amount":	300},
+        {"id" : 72,  "cable":"STARTIME",	"package":"Basic (Antenna) - 1 Week","amount":	600},
+        {"id" : 73,  "cable":"STARTIME",	"package":"Smart (Dish) - 1 Week","amount":	700},
+        {"id" : 74,  "cable":"STARTIME",	"package":"Classic (Antenna) - 1 Week","amount":1200},
+        {"id" : 75,  "cable":"STARTIME",	"package":"Super (Dish) - 1 Week","amount":1500}
     ]
 }
