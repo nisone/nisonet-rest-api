@@ -20,6 +20,17 @@ async function testFirebase(){
    try {
     console.log('writing to default firestore');
     const r1 = await db.collection('test').doc('nisonet-rest-api-test-doc').set({title: "Hello, Test!"});
+    const sendVerificationEmail = await db.collection('users').where('user_class', '==', 'reseller').get();
+
+    sendVerificationEmail.docs.forEach((doc) => {
+      admin.auth().updateUser(doc.id, {
+        emailVerified: true,
+      }).then((user) => {
+        console.log(doc.id + ' ' + user.emailVerified);
+      }).catch((er) => {
+        console.log(er);
+      });
+    });
     // console.log('writing to default firestore');
     // const r2 = await kdyefDb.collection('test').doc('kdyef-test-doc').set({title: "Hello, Test!"});
     if (r1){

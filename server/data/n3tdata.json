@@ -24,7 +24,7 @@
             "plan_network": "MTN",
             "plan_type": "SME",
             "plan": "500MB",
-            "plan_amount": 103.00,
+            "plan_amount": 105.00,
             "validity": "    1 Month"
         },
         {
@@ -33,7 +33,7 @@
             "plan_network": "MTN",
             "plan_type": "SME",
             "plan": "1GB",
-            "plan_amount": 208.00,
+            "plan_amount": 210.00,
             "validity": "    1 Month"
         },
         {
@@ -42,7 +42,7 @@
             "plan_network": "MTN",
             "plan_type": "SME",
             "plan": "2GB",
-            "plan_amount": 416.00,
+            "plan_amount": 420.00,
             "validity": "    1 Month"
         },
         {
@@ -51,7 +51,7 @@
             "plan_network": "MTN",
             "plan_type": "SME",
             "plan": "3GB",
-            "plan_amount": 624.00,
+            "plan_amount": 630.00,
             "validity": "    1 Month"
         },
         {
@@ -60,7 +60,7 @@
             "plan_network": "MTN",
             "plan_type": "SME",
             "plan": "5GB",
-            "plan_amount": 1040.00,
+            "plan_amount": 1050.00,
             "validity": "1 Month"
         },
         {
@@ -69,7 +69,7 @@
             "plan_network": "MTN",
             "plan_type": "SME",
             "plan": "10GB",
-            "plan_amount": 2080.00,
+            "plan_amount": 2100.00,
             "validity": "1 Month"
         },
         {
@@ -78,7 +78,7 @@
             "plan_network": "GLO",
             "plan_type": "GIFTING",
             "plan": "1.35GB",
-            "plan_amount": 425.00,
+            "plan_amount": 480.00,
             "validity": "    1 Month"
         },
         {
@@ -87,7 +87,7 @@
             "plan_network": "GLO",
             "plan_type": "GIFTING",
             "plan": "2.9GB",
-            "plan_amount": 850.00,
+            "plan_amount": 970.00,
             "validity": "    1 Month"
         },
         {
@@ -96,7 +96,7 @@
             "plan_network": "GLO",
             "plan_type": "GIFTING",
             "plan": "4.1GB",
-            "plan_amount": 1275.00,
+            "plan_amount": 1450.00,
             "validity": "1 Month"
         },
         {
@@ -105,7 +105,7 @@
             "plan_network": "GLO",
             "plan_type": "GIFTING",
             "plan": "5.8GB",
-            "plan_amount": 1700.00,
+            "plan_amount": 1900.00,
             "validity": "1 Month"
         },
         {
@@ -159,7 +159,7 @@
             "plan_network": "AIRTEL",
             "plan_type": "COOPERATE GIFTING",
             "plan": "1GB",
-            "plan_amount": 185.00,
+            "plan_amount": 195.00,
             "validity": "    1 Month"
         },
         {
