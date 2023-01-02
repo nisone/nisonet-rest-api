@@ -11,6 +11,7 @@ const paymentRoute = require('./server/routes/payment.js');
 const notification = require('./server/routes/notification.js');
 const vtuRoute = require('./server/routes/vtu.js');
 const { testFirebase } = require('./server/db/conn.js');
+const maskawaVTURoute = require('./server/routes/maskawa-vtu-route.js');
 
 const app =  express();
 
@@ -43,6 +44,7 @@ app.use('/webhook', webhook);
 app.use('/payment', paymentRoute);
 app.use('/user', usersRoute);
 app.use('/vtu', vtuRoute);
+app.use('/maskawa-vtu', maskawaVTURoute);
 
 app.listen(port,() => {
     console.log(`App listening on port: ${port}`);
