@@ -105,8 +105,8 @@ async function verifyPayment(req, res) {
 
         const batch = db.batch();
 
-        const snapshot = await db.collection('payment').doc(reference).get();
-        snapshot.ref.update({
+        const paymentRef = await db.collection('payment').doc(reference).get();
+        paymentRef.ref.update({
             status: 'success',
             updatedAt: Timestamp.now()
         });
@@ -137,32 +137,66 @@ async function paymentCallback(req, res) {
             });
         }
 
-        if(response.data.data.status != "success"){
-            return res.status(400).json({
-                "status" : response.data.data.status,
-                "message": "transaction verification not successful"
-            });
-        }
-        const userDocument = await db.collection('users').doc(response.data.data.metadata.uid).get();
-        var creditBalance = Number(userDocument.get('credit')) + Number(response.data.data.metadata.amount);
+        const data = response.data.data;
         const batch = db.batch();
+        
+        const paymentRef = await db.collection('payment').doc(reference).get();
+        console.log('Payment Status: ' + paymentRef.get('status'));
+        console.log('Response Status: ' + data.status);
+        if(paymentRef.get('status') == data.status && data.status == 'success'){
+            return res.status(200).json({
+                "message" : "transaction successful",
+                "status" : data.status
+            });
+        } 
 
-        const snapshot = await db.collection('payment').doc(reference).get();
-        console.log('Updating payment');
-        snapshot.ref.update({
-            status: 'success',
-            updatedAt: Timestamp.now()
-        });
-        console.log('Updating credit balance');
-        userDocument.ref.update({
-            credit: creditBalance,
-            updated_at: Timestamp.now(),
-        });
-    
-        batch.commit();  // Here we return the Promise returned by commit()
+        if(paymentRef.get('status') == data.status && data.status != 'success'){
+            return res.status(400).json({
+                "message" : "transaction not successful",
+                "status" : data.status
+            });
+        } 
 
-        return res.status(200).json({
-            "message" : "transaction verified",
+
+        if(paymentRef.get('status') != data.status && data.status != 'success'){
+            console.log('Updating payment');
+            paymentRef.ref.update({
+                status: data.status,
+                updatedAt: Timestamp.now()
+            });
+        
+            batch.commit();
+            
+            return res.status(400).json({
+                "message" : "transaction not successful",
+                "status" : data.status
+            });
+        } 
+
+        if(paymentRef.get('status') != data.status && data.status == 'success'){
+            const userRef = await db.collection('users').doc(data.metadata.uid).get();
+            var creditBalance = Number(userRef.get('credit')) + Number(data.metadata.amount);
+            console.log('Updating payment');
+            paymentRef.ref.update({
+                status: data.status,
+                updatedAt: Timestamp.now()
+            });
+            console.log('Updating credit balance');
+            userRef.ref.update({
+                credit: creditBalance,
+                updated_at: Timestamp.now(),
+            });
+        
+            batch.commit();
+            
+            return res.status(200).json({
+                "message" : "transaction successful",
+                "status" : response.data.data.status
+            });
+        } 
+
+        return res.status(400).json({
+            "message" : "transaction can\'t be verified",
             "status" : response.data.data.status
         });
     }).catch((error) => {
