@@ -45,9 +45,9 @@ async function createPayment(req, res) {
     axios.post('https://api.paystack.co/transaction/initialize', {
         "email" : data.email,
         "amount" : (data.amount + transaction_charge) * 100,
-        // "subaccount" : process.env.ENVIRONMENT == 'production' ? 'ACCT_txmkyg2d0nc3g75' : 'ACCT_8bib3eyb12qg2hb',
-        // "transaction_charge" : transaction_charge * 100,
-        // "bearer" : "account",
+        "subaccount" : process.env.ENVIRONMENT == 'production' ? 'ACCT_9i8ieqqdr044e5k' : 'ACCT_8bib3eyb12qg2hb',
+        "transaction_charge" : transaction_charge * 100,
+        "bearer" : "account",
         "metadata": data.metadata,
         "channels": ["card"],
         "callback_url": "https://nisonet.cyclic.app/payment/callback"
