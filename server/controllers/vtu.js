@@ -29,13 +29,34 @@ async function airtimeTopup(req, res) {
         
         return res.status(201).json({
             "status": true,
-            "message": "Airtime topup successful"
+            "message": "Airtime topup successful",
+            "data" : response.data
         });
     }).catch((error) => {
         console.log(error);
+
+        if(error.code === "ENETUNREACH"){
+            return res.status(500).json({
+                "message": error.message
+            });
+        }
+
+        if(error.response.data.message.startsWith('Insufficient Account Kindly Fund Your Wallet') ){
+            return res.status(400).json({
+                "message": error.message,
+                "data" : {
+                    'status': 'fail',
+                    'data': 'Account out of service'
+                }
+            });
+        }
+        
         return res.status(400).json({
             "message": error.message,
-            "data" : error.response.data
+            "data" : {
+                'status': 'fail',
+                'data': error.message
+            }
         });
     });
 }
@@ -59,10 +80,30 @@ async function purchaseData(req, res) {
                 "data" : response.data
             });
         }).catch((error) => {
-            // console.error(error);
+            console.log(error);
+
+            if(error.code === "ENETUNREACH"){
+                return res.status(500).json({
+                    "message": error.message
+                });
+            }
+
+            if(error.response.data.message.startsWith('Insufficient Account Kindly Fund Your Wallet') ){
+                return res.status(400).json({
+                    "message": error.message,
+                    "data" : {
+                        'status': 'fail',
+                        'data': 'Account out of service'
+                    }
+                });
+            }
+            
             return res.status(400).json({
                 "message": error.message,
-                "data": error.response.data
+                "data" : {
+                    'status': 'fail',
+                    'data': error.message
+                }
             });
         });
     } catch (error) {
@@ -92,14 +133,30 @@ async function cableSubscription(req, res) {
                 });
             }
         }).catch((error) => {
+            console.log(error);
+
             if(error.code === "ENETUNREACH"){
                 return res.status(500).json({
                     "message": error.message
                 });
             }
+            
+            if(error.response.data.message.startsWith('Insufficient Account Kindly Fund Your Wallet') ){
+                return res.status(400).json({
+                    "message": error.message,
+                    "data" : {
+                        'status': 'fail',
+                        'data': 'Account out of service'
+                    }
+                });
+            }
+            
             return res.status(400).json({
                 "message": error.message,
-                "error": error.response.data
+                "data" : {
+                    'status': 'fail',
+                    'data': error.message
+                }
             });
         });
     } catch (error) {
