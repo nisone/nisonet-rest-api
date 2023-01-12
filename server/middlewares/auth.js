@@ -18,7 +18,11 @@ const authMiddleWare = (req, res, next) => {
         .then((decodedToken) => {
             getUserProfile(decodedToken.uid).then((user) => {
                 req.user = user;
-                return next();
+                if(user.status == true) {
+                    return next();
+                }else{
+                    return res.status(403).send({ response: "User account disabled! contact support for more help." });
+                }
             });
             
         })
