@@ -6,16 +6,18 @@ const router = express.Router();
 var crypto = require('crypto');
 const { default: axios } = require('axios');
 const { Timestamp } = require('firebase-admin/firestore');
+const { handleTransferSuccess, handleTransferFailed, handleTransferReversed } = require('../controllers/webhook.js');
 // Using Express
 router.post("/transaction/verify", function(req, res) {
     const hash = crypto.createHmac('sha512', process.env.PAYSTACK_LIVE_SK).update(JSON.stringify(req.body)).digest('hex');
     if (hash != req.headers['x-paystack-signature']) {
         return res.sendStatus(403);
     }
-    const event = req.body;
+    const event = req.body.event;
+    const data = req.body.data;
     
-    if(req.body.event == 'charge.success'){
-        updatePaymentStatus(req.body.data)
+    if(event == 'charge.success'){
+        updatePaymentStatus(data)
         .then(() => {
             // Todo: notify user on successful payment
         })
@@ -24,6 +26,22 @@ router.post("/transaction/verify", function(req, res) {
             console.log('Server error processing transaction data');
         })
     }
+
+    // handle tranfer success
+    if(event == 'transfer.success'){
+        handleTransferSuccess(data);
+    }
+
+    // handle tranfer failed
+    if(event == 'transfer.failed'){
+        handleTransferFailed(data);
+    }
+
+    // handle transfer revers
+    if(event == 'transfer.reversed'){
+        handleTransferReversed(data);
+    }
+    
     res.sendStatus(200);
 });
 
@@ -45,10 +63,11 @@ router.post("/test/transaction/verify", function(req, res) {
     if (hash != req.headers['x-paystack-signature']) {
         return res.sendStatus(403);
     }
-    const event = req.body;
+    const event = req.body.event;
+    const data = req.body.data;
     
-    if(req.body.event == 'charge.success'){
-        updatePaymentStatus(req.body.data)
+    if(event == 'charge.success'){
+        updatePaymentStatus(data)
         .then(() => {
             // Todo: notify user on successful payment
         })
@@ -56,6 +75,21 @@ router.post("/test/transaction/verify", function(req, res) {
             // Todo: notify user on error
             console.log('Server error processing transaction data');
         })
+    }
+
+    // handle tranfer success
+    if(event == 'transfer.success'){
+        handleTransferSuccess(data);
+    }
+
+    // handle tranfer failed
+    if(event == 'transfer.failed'){
+        handleTransferFailed(data);
+    }
+
+    // handle transfer revers
+    if(event == 'transfer.reversed'){
+        handleTransferReversed(data);
     }
     res.sendStatus(200);
 });
