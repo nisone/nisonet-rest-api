@@ -13,4 +13,28 @@ async function createPayment() {
     
 }
 
-module.exports = {createPayment, verifyPayment, charge}
+const handleTransferSuccess = async (data) => {
+    try {
+        console.log(data);
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
+const handleTransferFailed = async (data) => {
+    try {
+        console.log(data);
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
+const handleTransferReversed = async (data) => {
+    try {
+        console.log(data);
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
+module.exports = {createPayment, handleTransferSuccess, handleTransferFailed, handleTransferReversed}
