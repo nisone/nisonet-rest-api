@@ -19,10 +19,12 @@ router.post("/transaction/verify", function (req, res) {
         updatePaymentStatus(data)
             .then(() => {
                 // Todo: notify user on successful payment
+                res.sendStatus(200);
             })
             .catch(() => {
                 // Todo: notify user on error
                 console.log('Server error processing transaction data');
+                res.sendStatus(500);
             })
     }
 
@@ -41,7 +43,7 @@ router.post("/transaction/verify", function (req, res) {
         handleTransferReversed(data);
     }
 
-    res.sendStatus(200);
+    // res.sendStatus(200);
 });
 
 router.get('/update-users', (req, res) => {
