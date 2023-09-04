@@ -25,22 +25,50 @@ router.post("/transaction/verify", function (req, res) {
                 // Todo: notify user on error
                 console.log('Server error processing transaction data');
                 res.sendStatus(500);
-            })
+            });
     }
 
     // handle tranfer success
     if (event == 'transfer.success') {
-        handleTransferSuccess(data);
+        handleTransferSuccess(data)
+            .then(() => {
+                // Todo: notify user on successful payment
+                res.sendStatus(200);
+            })
+            .catch(() => {
+                // Todo: notify user on error
+                console.log('Server error processing transaction data');
+                res.sendStatus(500);
+            });
     }
 
     // handle tranfer failed
     if (event == 'transfer.failed') {
-        handleTransferFailed(data);
+        handleTransferFailed(data)
+            .then(() => {
+                // Todo: notify user on successful payment
+                res.sendStatus(200);
+            })
+            .catch(() => {
+                // Todo: notify user on error
+                console.log('Server error processing transaction data');
+                res.sendStatus(500);
+            });
     }
 
     // handle transfer revers
     if (event == 'transfer.reversed') {
-        handleTransferReversed(data);
+        handleTransferReversed(data)
+            .then(() => {
+                // Todo: notify user on successful payment
+                res.sendStatus(200);
+            })
+            .catch(() => {
+                // Todo: notify user on error
+                console.log('Server error processing transaction data');
+                res.sendStatus(500);
+            });
+
     }
 
     // res.sendStatus(200);
@@ -137,10 +165,24 @@ const updatePaymentStatus = async (data) => {
 
         let creditBalance = customerSnapshot.get('credit');
         let paymentAmount = paymentSnapshot.get('amount');
+
+        // testing session
+        // let recentTransaction = customerSnapshot.get('recent_transactions');
+
+        // recentTransaction = recentTransaction.map((value) => {
+        //     if (value.reference == reference) {
+        //         value.status = 'success';
+        //     }
+        //     return value;
+        // });
+
+        // end testing session
+
         let newCreditBalance = creditBalance + paymentAmount;
         console.log(newCreditBalance);
         await customerSnapshot.ref.update({
             credit: newCreditBalance,
+            // recent_transactions: recentTransaction, // testing value
             updated_at: Timestamp.now()
         });
 
