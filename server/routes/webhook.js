@@ -167,14 +167,15 @@ const updatePaymentStatus = async (data) => {
         let paymentAmount = paymentSnapshot.get('amount');
 
         // testing session
-        // let recentTransaction = customerSnapshot.get('recent_transactions');
-
-        // recentTransaction = recentTransaction.map((value) => {
-        //     if (value.reference == reference) {
-        //         value.status = 'success';
-        //     }
-        //     return value;
-        // });
+        let recentTransaction = customerSnapshot.get('recent_transactions');
+        console.log('Recent: ', recentTransaction);
+        recentTransaction = recentTransaction.map((value) => {
+            if (value.reference == reference) {
+                value.status = 'success';
+            }
+            return value;
+        });
+        console.log('Recent: ', recentTransaction);
 
         // end testing session
 
@@ -182,7 +183,7 @@ const updatePaymentStatus = async (data) => {
         console.log(newCreditBalance);
         await customerSnapshot.ref.update({
             credit: newCreditBalance,
-            // recent_transactions: recentTransaction, // testing value
+            recent_transactions: recentTransaction, // testing value
             updated_at: Timestamp.now()
         });
 
