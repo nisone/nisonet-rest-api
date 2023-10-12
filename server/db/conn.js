@@ -11,21 +11,23 @@ admin.initializeApp({
 
 const db = firestore.getFirestore();
 
+const fcm = admin.messaging();
+
 async function testFirebase() {
   try {
     console.log('writing to default firestore');
     const r1 = await db.collection('test').doc('nisonet-rest-api-test-doc').set({ title: "Hello, Test!" });
-    const sendVerificationEmail = await db.collection('users').where('user_class', '==', 'reseller').get();
+    // const sendVerificationEmail = await db.collection('users').where('user_class', '==', 'reseller').get();
 
-    sendVerificationEmail.docs.forEach((doc) => {
-      admin.auth().updateUser(doc.id, {
-        emailVerified: true,
-      }).then((user) => {
-        console.log(doc.id + ' ' + user.emailVerified);
-      }).catch((er) => {
-        console.log(er);
-      });
-    });
+    // sendVerificationEmail.docs.forEach((doc) => {
+    //   admin.auth().updateUser(doc.id, {
+    //     emailVerified: true,
+    //   }).then((user) => {
+    //     console.log(doc.id + ' ' + user.emailVerified);
+    //   }).catch((er) => {
+    //     console.log(er);
+    //   });
+    // });
     if (r1) {
       console.log('Google fire-store Connected Successfully😀')
     }

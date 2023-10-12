@@ -1,5 +1,5 @@
 const { admin, db } = require('../db/conn.js');
-const {createUserProfile, updateUserProfile, deleteUserProfile} = require('../models/users.js');
+const { createUserProfile, updateUserProfile, deleteUserProfile } = require('../models/users.js');
 
 const registerUser = (req, res) => {
     var email = req.body.email;
@@ -7,20 +7,20 @@ const registerUser = (req, res) => {
     var displayName = req.body.displayName;
     var password = req.body.password;
 
-    if(email == undefined && phone == undefined) {
+    if (email == undefined && phone == undefined) {
         res.status(400).json({
             message: 'User email or phone number is required'
         });
     }
 
-    if(password == undefined) {
+    if (password == undefined) {
         res.status(400).json({
             message: 'Password is undefined'
         });
     }
 
     plainPassword = Buffer.from(password, 'base64').toString('utf8');
-    var encodedPassword = Buffer.from('username:password', 'utf8').toString('base64'); 
+    var encodedPassword = Buffer.from('username:password', 'utf8').toString('base64');
 
     getAuth()
         .createUser({
@@ -33,17 +33,17 @@ const registerUser = (req, res) => {
         .then((userRecord) => {
             console.log('Successfully created new user:', userRecord.uid);
             createUserProfile(userRecord.uid, userRecord.displayName, userRecord.email, userRecord.phoneNumber, userRecord.disabled).then((value) => {
-                if(value){
+                if (value) {
                     res.status(201).json({
                         message: `Successfully created new user: ${userRecord.uid}`
                     });
-                }else{
+                } else {
                     res.status(201).json({
                         message: `User profile not created: ${userRecord.uid}`
                     });
                 }
             })
-            
+
         })
         .catch((error) => {
             console.log('Error creating new user:', error);
@@ -149,4 +149,4 @@ function getAuth() {
     return admin.auth();
 }
 
-module.exports = { registerUser, updateUser, deleteUser, getUserByUID };
+module.exports = { registerUser, updateUser, deleteUser, getUserByUID, getUserByEmail };

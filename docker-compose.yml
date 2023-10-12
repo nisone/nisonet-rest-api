@@ -1,0 +1,15 @@
+version: '3'
+services:
+  api: 
+    build: .
+    ports:
+      - "3000:5000"
+  db:
+    image: mongo:latest
+    environment:
+      - ROOT_PASSWORD='value'
+    volumes:
+      - db-data:/data
+
+volumes:
+  db-data: 

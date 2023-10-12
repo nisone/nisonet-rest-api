@@ -12,15 +12,14 @@ const notification = require('./server/routes/notification.js');
 const vtuRoute = require('./server/routes/vtu.js');
 const { testFirebase } = require('./server/db/conn.js');
 const maskawaVTURoute = require('./server/routes/maskawa-vtu-route.js');
-
-const app =  express();
+const app = express();
 
 const port = process.env.PORT || 5000;
 
 
 app.use(cors());
 app.use(helmet());
-app.use(bodyParser.json({extended: false}));
+app.use(bodyParser.json({ extended: false }));
 
 app.disable('x-powered-by');
 
@@ -31,7 +30,7 @@ app.get('/', (req, res) => {
         console.log('firebase connection test failed!');
     });
     res.status(200).json({
-        "message" : "welcome"
+        "message": "welcome"
     });
 });
 
@@ -46,7 +45,7 @@ app.use('/user', usersRoute);
 app.use('/vtu', vtuRoute);
 app.use('/maskawa-vtu', maskawaVTURoute);
 
-app.listen(port,() => {
+app.listen(port, () => {
     console.log(`App listening on port: ${port}`);
 }).on('connection', (stream) => {
     console.log(`connection FROM:${stream.address().address} on PORT:${stream.address().port}`);

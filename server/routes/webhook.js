@@ -1,5 +1,5 @@
 const express = require('express');
-const { db } = require('../db/conn.js');
+const { db, admin } = require('../db/conn.js');
 
 const router = express.Router();
 
@@ -7,6 +7,8 @@ let crypto = require('crypto');
 const { default: axios } = require('axios');
 const { Timestamp } = require('firebase-admin/firestore');
 const { handleTransferSuccess, handleTransferFailed, handleTransferReversed } = require('../controllers/webhook.js');
+const { getUserByEmail } = require('../controllers/users.js');
+const { fcmSendToDevice } = require('../controllers/notification.js');
 // Using Express
 router.post("/transaction/verify", function (req, res) {
     const hash = crypto.createHmac('sha512', process.env.PAYSTACK_LIVE_SK).update(JSON.stringify(req.body)).digest('hex');
@@ -26,6 +28,25 @@ router.post("/transaction/verify", function (req, res) {
                 console.log('Server error processing transaction data');
                 res.sendStatus(500);
             });
+    }
+
+    // handle successful assigning of DVA to customer
+    if (event == 'dedicatedaccount.assign.success') {
+        assignDvaToCustomer(data)
+            .then(() => {
+                // Todo: notify user on successful payment
+                res.sendStatus(200);
+            })
+            .catch(() => {
+                // Todo: notify user on error
+                console.log('Server error processing transaction data');
+                res.sendStatus(500);
+            });
+    }
+
+    // handle failed assigning of DVA to customer
+    if (event == 'dedicatedaccount.assign.failed') {
+        res.sendStatus(200);
     }
 
     // handle tranfer success
@@ -107,6 +128,25 @@ router.post("/test/transaction/verify", function (req, res) {
             })
     }
 
+    // handle successful assigning of DVA to customer
+    if (event == 'dedicatedaccount.assign.success') {
+        assignDvaToCustomer(data)
+            .then(() => {
+                // Todo: notify user on successful payment
+                res.sendStatus(200);
+            })
+            .catch(() => {
+                // Todo: notify user on error
+                console.log('Server error processing transaction data');
+                res.sendStatus(500);
+            });
+    }
+
+    // handle failed assigning of DVA to customer
+    if (event == 'dedicatedaccount.assign.failed') {
+        res.sendStatus(200);
+    }
+
     // handle tranfer success
     if (event == 'transfer.success') {
         handleTransferSuccess(data);
@@ -135,6 +175,47 @@ router.post("/vtu/n3tdata", function (req, res) {
     console.log(event);
     res.sendStatus(200);
 });
+
+const assignDvaToCustomer = async (data) => {
+    try {
+        let { customer, dedicated_account } = data;
+        let customerUserRecord = await getUserByEmail(customer["email"]);
+        let { uid } = customerUserRecord;
+
+        let customerUserDoc = await db.collection('users').doc(uid).get();
+        if (!customerUserDoc.exists) {
+            console.log(customer['email'], ': user document not exist');
+        }
+
+        await customerUserDoc.ref.update({
+            'paystack_customer': {
+                'customer_code': customer['customer_code'],
+                'id': customer['id'],
+                'risk_action': customer['risk_action'],
+            },
+            'paystack_dedicated_account': {
+                'account_name': dedicated_account['account_name'],
+                'account_number': dedicated_account['account_number'],
+                'active': dedicated_account['active'],
+                'assigned': dedicated_account['assigned'],
+                'account_name': dedicated_account['account_name'],
+                'assignment': dedicated_account['assignment'],
+                'bank': dedicated_account['bank'],
+                'id': dedicated_account['id'],
+            }
+        });
+
+
+        await admin.messaging().sendToDevice(customerUserDoc.get('fcm_token'), {
+            notification: {
+                'body': 'Your Dedicated Account have been assigned successful.',
+                'title': 'DVA Assigned'
+            }
+        });
+    } catch (error) {
+        console.error(error);
+    }
+}
 
 const updatePaymentStatus = async (data) => {
     const { reference, metadata } = data;
