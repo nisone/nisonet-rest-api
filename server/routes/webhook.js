@@ -217,12 +217,95 @@ const assignDvaToCustomer = async (data) => {
     }
 }
 
+const handleDVACharge = async (data) => {
+    try {
+        const { reference, authorization, amount, customer, fees, status } = data;
+        const { channel, sender_bank, sender_bank_account_number, sender_name, narration } = authorization;
+        const { email, id, customer_code } = customer;
+        let customerUserRecord = await getUserByEmail(email);
+
+        const paymentSnapshot = await db.collection('payment').doc(reference).get();
+        if (!paymentSnapshot.exists) {
+            paymentSnapshot.ref.create({
+                "access_code": customer_code,
+                "amount": (+amount / 100),
+                "createdAt": Timestamp.now(),
+                "reference": reference,
+                "status": status,
+                "uid": customerUserRecord.uid,
+                "updatedAt": Timestamp.now(),
+            });
+
+            return await updateUserCreditBalance(customerUserRecord.uid, (+amount / 100));
+        }
+        if (paymentSnapshot.get('status') == data.status) {
+            return;
+        }
+        await paymentSnapshot.ref.update({
+            status: data.status,
+            updatedAt: Timestamp.now()
+        });
+
+        if (data.status != 'success') {
+            return;
+        }
+
+        await updateUserCreditBalance(customerUserRecord.uid, (+amount / 100), reference);
+
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+const updateUserCreditBalance = async (uid, amount, reference) => {
+    try {
+        console.log('Fetching user data');
+        console.log(uid);
+
+        const batch = db.batch();
+
+        const customerSnapshot = await db.collection('users').doc(uid).get();
+
+        let creditBalance = customerSnapshot.get('credit');
+
+        // testing session
+        // let recentTransaction = customerSnapshot.get('recent_transactions');
+        // console.log('Recent: ', recentTransaction);
+
+        // recentTransaction = recentTransaction.map((value) => {
+        //     if (value.reference == reference) {
+        //         value.status = 'success';
+        //     }
+        //     return value;
+        // });
+        // console.log('Recent: ', recentTransaction);
+
+        // end testing session
+
+        let newCreditBalance = creditBalance + amount;
+        console.log(newCreditBalance);
+        await customerSnapshot.ref.update({
+            credit: newCreditBalance,
+            // recent_transactions: recentTransaction, // testing value
+            updated_at: Timestamp.now()
+        });
+
+        await batch.commit();
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 const updatePaymentStatus = async (data) => {
-    const { reference, metadata } = data;
+    const { reference, metadata, authorization, } = data;
+    const { channel } = authorization;
     // const amount = data.amount;
     // const authorization = data.authorization;
     try {
 
+        if (channel == 'dedicated_nuban') {
+            return await handleDVACharge(data);
+        }
 
         const paymentSnapshot = await db.collection('payment').doc(reference).get();
         if (paymentSnapshot.get('status') == data.status) {
