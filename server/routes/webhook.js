@@ -299,8 +299,7 @@ const updateUserCreditBalance = async (uid, amount, reference) => {
 const updatePaymentStatus = async (data) => {
     const { reference, metadata, authorization, } = data;
     const { channel } = authorization;
-    // const amount = data.amount;
-    // const authorization = data.authorization;
+
     try {
 
         if (channel == 'dedicated_nuban') {
