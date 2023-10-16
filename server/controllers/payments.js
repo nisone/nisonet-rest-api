@@ -265,9 +265,9 @@ async function fetchCustomer(req, res) {
     }).then(async (response) => {
 
         return res.status(200).json({
-            "status": response.status,
-            "message": response.message,
-            "data": response.data
+            "status": response.data.status,
+            "message": response.data.message,
+            "data": response.data.data
         });
     }).catch((error) => {
         console.log(error);
