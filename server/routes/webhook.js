@@ -109,10 +109,10 @@ router.get('/update-users', (req, res) => {
 });
 
 router.post("/test/transaction/verify", function (req, res) {
-    const hash = crypto.createHmac('sha512', process.env.PAYSTACK_TEST_SK).update(JSON.stringify(req.body)).digest('hex');
-    if (hash != req.headers['x-paystack-signature']) {
-        return res.sendStatus(403);
-    }
+    // const hash = crypto.createHmac('sha512', process.env.PAYSTACK_TEST_SK).update(JSON.stringify(req.body)).digest('hex');
+    // if (hash != req.headers['x-paystack-signature']) {
+    //     return res.sendStatus(403);
+    // }
     const { event, data } = req.body;
 
     if (event == 'charge.success') {
@@ -180,12 +180,14 @@ const assignDvaToCustomer = async (data) => {
     try {
         let { customer, dedicated_account } = data;
         let customerUserRecord = await getUserByEmail(customer["email"]);
-        let { uid, fcm_token } = customerUserRecord;
+        let { uid } = customerUserRecord;
 
         let customerUserDoc = await db.collection('users').doc(uid).get();
         if (!customerUserDoc.exists) {
             console.log(customer['email'], ': user document not exist');
+            return false;
         }
+        let fcm_token = customerUserDoc.get('fcm_token');
 
         await customerUserDoc.ref.update({
             'paystack_customer_id': customer['id'],
@@ -193,8 +195,8 @@ const assignDvaToCustomer = async (data) => {
             'paystack_dedicated_accounts': FieldValue.arrayUnion(dedicated_account)
         });
 
-
         if (fcm_token) {
+            console.log('sending notification to:', fcm_token);
             await admin.messaging().sendToDevice(fcm_token, {
                 notification: {
                     'body': 'Your Dedicated Account have been assigned successful.',
