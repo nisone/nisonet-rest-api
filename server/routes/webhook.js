@@ -5,7 +5,7 @@ const router = express.Router();
 
 let crypto = require('crypto');
 const { default: axios } = require('axios');
-const { Timestamp } = require('firebase-admin/firestore');
+const { Timestamp, FieldValue } = require('firebase-admin/firestore');
 const { handleTransferSuccess, handleTransferFailed, handleTransferReversed } = require('../controllers/webhook.js');
 const { getUserByEmail } = require('../controllers/users.js');
 const { fcmSendToDevice } = require('../controllers/notification.js');
@@ -180,7 +180,7 @@ const assignDvaToCustomer = async (data) => {
     try {
         let { customer, dedicated_account } = data;
         let customerUserRecord = await getUserByEmail(customer["email"]);
-        let { uid } = customerUserRecord;
+        let { uid, fcm_token } = customerUserRecord;
 
         let customerUserDoc = await db.collection('users').doc(uid).get();
         if (!customerUserDoc.exists) {
@@ -188,30 +188,20 @@ const assignDvaToCustomer = async (data) => {
         }
 
         await customerUserDoc.ref.update({
-            'paystack_customer': {
-                'customer_code': customer['customer_code'],
-                'id': customer['id'],
-                'risk_action': customer['risk_action'],
-            },
-            'paystack_dedicated_account': {
-                'account_name': dedicated_account['account_name'],
-                'account_number': dedicated_account['account_number'],
-                'active': dedicated_account['active'],
-                'assigned': dedicated_account['assigned'],
-                'account_name': dedicated_account['account_name'],
-                'assignment': dedicated_account['assignment'],
-                'bank': dedicated_account['bank'],
-                'id': dedicated_account['id'],
-            }
+            'paystack_customer_id': customer['id'],
+            'paystack_customer_code': customer['customer_code'],
+            'paystack_dedicated_accounts': FieldValue.arrayUnion(dedicated_account)
         });
 
 
-        await admin.messaging().sendToDevice(customerUserDoc.get('fcm_token'), {
-            notification: {
-                'body': 'Your Dedicated Account have been assigned successful.',
-                'title': 'DVA Assigned'
-            }
-        });
+        if (fcm_token) {
+            await admin.messaging().sendToDevice(fcm_token, {
+                notification: {
+                    'body': 'Your Dedicated Account have been assigned successful.',
+                    'title': 'DVA Assigned'
+                }
+            });
+        }
     } catch (error) {
         console.error(error);
     }
@@ -261,12 +251,14 @@ const updateUserCreditBalance = async (uid, amount, reference) => {
     try {
         console.log('Fetching user data');
         console.log(uid);
+        let customerFCMToken;
 
         const batch = db.batch();
 
         const customerSnapshot = await db.collection('users').doc(uid).get();
 
         let creditBalance = customerSnapshot.get('credit');
+        customerFCMToken = customerSnapshot.get('fcm_token');
 
         // testing session
         // let recentTransaction = customerSnapshot.get('recent_transactions');
@@ -291,6 +283,15 @@ const updateUserCreditBalance = async (uid, amount, reference) => {
         });
 
         await batch.commit();
+
+        if (customerFCMToken) {
+            await admin.messaging().sendToDevice(customerFCMToken, {
+                notification: {
+                    'body': 'Credit Alert.',
+                    'title': `Account credited the sum of ${amount}`
+                }
+            });
+        }
     } catch (error) {
         console.error(error);
     }

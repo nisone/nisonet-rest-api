@@ -10,8 +10,8 @@ const headers = {
 }
 
 async function createPayment(req, res) {
-    var data = req.body;
-    var error = [];
+    let data = req.body;
+    let error = [];
 
     if (data.uid == null) {
         error.push({ uid: "uid is required" });
@@ -30,15 +30,13 @@ async function createPayment(req, res) {
         return res.status(400).json({ message: 'payment initialization error', error: error });
     }
 
-    var transaction_charge = data.amount * 0.015;
+    let transaction_charge = data.amount * 0.015;
     // transaction_charge += data.amount * 0.075;
     if (data.amount > 2500) {
         transaction_charge += 100;
     }
 
-    if (transaction_charge < 50) {
-        transaction_charge = 50;
-    }
+    transaction_charge = Math.max(transaction_charge, 50)
 
     console.log('connecting to payment gateway');
     // console.log(`paystack charge: ${transaction_charge}`);
@@ -86,7 +84,7 @@ async function createPayment(req, res) {
 }
 
 async function verifyPayment(req, res) {
-    var reference = req.params.reference;
+    const { reference } = req.params;
     axios.get(`https://api.paystack.co/transaction/verify/${reference}`, {
         headers: headers
     }).then(async (response) => {
@@ -126,7 +124,7 @@ async function verifyPayment(req, res) {
 }
 
 async function paymentCallback(req, res) {
-    var reference = req.query.reference || req.query.txref;
+    const reference = req.query.reference || req.query.txref;
 
     axios.get(`https://api.paystack.co/transaction/verify/${reference}`, {
         headers: headers
@@ -137,7 +135,7 @@ async function paymentCallback(req, res) {
             });
         }
 
-        const data = response.data.data;
+        const { data } = response.data;
         const batch = db.batch();
 
         const paymentRef = await db.collection('payment').doc(reference).get();
@@ -175,7 +173,7 @@ async function paymentCallback(req, res) {
 
         if (paymentRef.get('status') != data.status && data.status == 'success') {
             const userRef = await db.collection('users').doc(data.metadata.uid).get();
-            var creditBalance = Number(userRef.get('credit')) + Number(data.metadata.amount);
+            const creditBalance = Number(userRef.get('credit')) + Number(data.metadata.amount);
             console.log('Updating payment');
             paymentRef.ref.update({
                 status: data.status,
@@ -271,7 +269,7 @@ async function fetchCustomer(req, res) {
         });
     }).catch((error) => {
         console.log(error);
-        return res.status(500).json({
+        return res.status(404).json({
             'status': 'error',
             "message": error.message
         });
