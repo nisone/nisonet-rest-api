@@ -8,7 +8,6 @@ const { default: axios } = require('axios');
 const { Timestamp, FieldValue } = require('firebase-admin/firestore');
 const { handleTransferSuccess, handleTransferFailed, handleTransferReversed } = require('../controllers/webhook.js');
 const { getUserByEmail } = require('../controllers/users.js');
-const { fcmSendToDevice } = require('../controllers/notification.js');
 // Using Express
 router.post("/transaction/verify", function (req, res) {
     const hash = crypto.createHmac('sha512', process.env.PAYSTACK_LIVE_SK).update(JSON.stringify(req.body)).digest('hex');
@@ -170,10 +169,60 @@ router.post("/vtu", function (req, res) {
     res.sendStatus(200);
 });
 
-router.post("/vtu/n3tdata", function (req, res) {
-    const event = req.body;
-    console.log(event);
-    res.sendStatus(200);
+router.post("/vtu/n3tdata", async function (req, res) {
+    // req.body
+    // {
+    //     "status": "success",
+    //     "request-id": "DATA_652ee2856479c",
+    //     "response": "Dear Customer, You have successfully shared 2GB Data to 2347062885314. Your SME data balance is 7719.77GB expires 21/01/2024. Thankyou"
+    //   }
+    try {
+        console.log(req.body);
+        const { status, 'request-id': id, response } = req.body;
+        const id_data = id.split('_');
+        const billId = id_data[1];
+        const uid = id_data[2];
+        console.log(billId, uid);
+
+        let billDoc = await db.collection('bills').doc(billId).get();
+        await billDoc.ref.update({
+            'status': status
+        });
+
+        let customerUserDoc = await db.collection('users').doc(uid).get();
+        let fcm_token = customerUserDoc.get('fcm_token');
+        let recentPurchases = customerUserDoc.get('recent_purchases');
+        if (recentPurchases) {
+            recentPurchases = recentPurchases.map((value) => {
+                if (value.id == billId) {
+                    value.status = status;
+                }
+                return value;
+            });
+        }
+
+
+        await customerUserDoc.ref.update({
+            'recent_purchases': recentPurchases,
+        });
+
+        if (fcm_token) {
+            console.log('sending notification to:', fcm_token);
+            await admin.messaging().sendToDevice(fcm_token, {
+                notification: {
+                    'body': status == 'success' ?
+                        `Dear Customer, You have successfully shared ${billDoc.get('package')} Data to ${billDoc.get('recipient')}. Your credit balance is ${customerUserDoc.get('credit')} . Thankyou` :
+                        `Dear Customer, Your ${billDoc.get('package')} Data to ${billDoc.get('recipient')} ${status}. Your unverified credit balance is ${customerUserDoc.get('credit_held')}. Thankyou`,
+                    'title': id_data[0]
+                }
+            });
+        }
+
+        res.sendStatus(200);
+    } catch (error) {
+        console.error(error);
+        res.sendStatus(500);
+    }
 });
 
 const assignDvaToCustomer = async (data) => {
