@@ -12,6 +12,7 @@ const notification = require('./server/routes/notification.js');
 const vtuRoute = require('./server/routes/vtu.js');
 const { testFirebase } = require('./server/db/conn.js');
 const maskawaVTURoute = require('./server/routes/maskawa-vtu-route.js');
+const wallet = require('./server/routes/wallet.js');
 const app = express();
 
 const port = process.env.PORT || 5000;
@@ -44,6 +45,7 @@ app.use('/payment', paymentRoute);
 app.use('/user', usersRoute);
 app.use('/vtu', vtuRoute);
 app.use('/maskawa-vtu', maskawaVTURoute);
+app.use('/wallet', wallet);
 
 app.listen(port, () => {
     console.log(`App listening on port: ${port}`);
