@@ -5,8 +5,7 @@ const { check, body } = require('express-validator');
 
 const router = express.Router();
 
-// router.post('/transfer', authMiddleWare, transfer);
-router.post('/transfer', [
+router.post('/transfer', authMiddleWare, [
   body("sender", "sender uid is required").not().isEmpty().escape(),
   body("recipient", "recipient uid is required").not().isEmpty().escape().custom((value, { req }) => {
     return value !== req.body.sender;
