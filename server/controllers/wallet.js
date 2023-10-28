@@ -62,6 +62,7 @@ const transfer = (req, res) => {
         'fee': fee,
         'memo': memo ?? '',
         'timestamp': timestamp,
+        'viewers': [sender, recipient],
         'hash': hashed
       });
 
