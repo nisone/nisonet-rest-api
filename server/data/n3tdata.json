@@ -241,6 +241,69 @@
             "plan": "10GB",
             "plan_amount": 2200.00,
             "validity": "1 Month"
+        },
+        {
+            "id": 57,
+            "network_id": 3,
+            "plan_network": "GLO",
+            "plan_type": "COOPERATE GIFTING",
+            "plan": "200MB",
+            "plan_amount": 50.00,
+            "validity": "1 Month"
+        },
+        {
+            "id": 58,
+            "network_id": 3,
+            "plan_network": "GLO",
+            "plan_type": "COOPERATE GIFTING",
+            "plan": "500MB",
+            "plan_amount": 108.00,
+            "validity": "1 Month"
+        },
+        {
+            "id": 59,
+            "network_id": 3,
+            "plan_network": "GLO",
+            "plan_type": "COOPERATE GIFTING",
+            "plan": "1GB",
+            "plan_amount": 210.00,
+            "validity": "1 Month"
+        },
+        {
+            "id": 60,
+            "network_id": 3,
+            "plan_network": "GLO",
+            "plan_type": "COOPERATE GIFTING",
+            "plan": "2GB",
+            "plan_amount": 420.00,
+            "validity": "1 Month"
+        },
+        {
+            "id": 61,
+            "network_id": 3,
+            "plan_network": "GLO",
+            "plan_type": "COOPERATE GIFTING",
+            "plan": "3GB",
+            "plan_amount": 630.00,
+            "validity": "1 Month"
+        },
+        {
+            "id": 62,
+            "network_id": 3,
+            "plan_network": "GLO",
+            "plan_type": "COOPERATE GIFTING",
+            "plan": "5GB",
+            "plan_amount": 1050.00,
+            "validity": "1 Month"
+        },
+        {
+            "id": 63,
+            "network_id": 3,
+            "plan_network": "GLO",
+            "plan_type": "COOPERATE GIFTING",
+            "plan": "10GB",
+            "plan_amount": 2150.00,
+            "validity": "1 Month"
         }
     ],
     "cable": [
