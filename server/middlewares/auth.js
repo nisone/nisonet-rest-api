@@ -6,7 +6,7 @@ const authMiddleWare = (req, res, next) => {
     console.log('Request URL:', req.originalUrl)
     console.log('Request Type:', req.method);
     const authorization = req.header("authorization");
-    const agent = req.header("user-agent");
+    const agent = req.header("x-zappay-signature");
 
     if (!agent) {
         return res.status(403).send({ response: "Unknown agent" });
