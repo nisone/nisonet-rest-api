@@ -27,9 +27,21 @@ async function airtimeTopup(req, res) {
         headers: headers
     }).then(async (response) => {
 
+        const { status, message } = response.data;
+
+        if (status == "fail") {
+            console.log(response.data.response);
+
+            return res.status(500).json({
+                "status": status,
+                "message": message,
+                "data": response.data
+            });
+        }
+
         return res.status(201).json({
-            "status": true,
-            "message": "Airtime topup successful",
+            "status": status,
+            "message": message,
             "data": response.data
         });
     }).catch((error) => {
@@ -74,9 +86,22 @@ async function purchaseData(req, res) {
         }, {
             headers: headers,
         }).then(async (response) => {
+
+            const { status, message } = response.data;
+
+            if (status == "fail") {
+                console.log(response.data.response);
+
+                return res.status(500).json({
+                    "status": status,
+                    "message": message,
+                    "data": response.data
+                });
+            }
+
             return res.status(201).json({
-                "status": true,
-                "message": "Data purchase successful",
+                "status": status,
+                "message": message,
                 "data": response.data
             });
         }).catch((error) => {
@@ -125,13 +150,31 @@ async function cableSubscription(req, res) {
         }, {
             headers: headers,
         }).then(async (response) => {
-            if (response.data.status == 'success') {
+            const { status, message } = response.data;
+
+            if (status == "fail") {
+                console.log(response.data.response);
+
+                return res.status(500).json({
+                    "status": status,
+                    "message": message,
+                    "data": response.data
+                });
+            }
+
+            else if (status == 'success') {
                 return res.status(201).json({
                     "status": true,
                     "message": "Cable subscription successful",
                     "data": response.data
                 });
             }
+
+            return res.status(201).json({
+                "status": status,
+                "message": message,
+                "data": response.data
+            });
         }).catch((error) => {
             console.log(error);
 
