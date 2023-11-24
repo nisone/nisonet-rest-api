@@ -181,13 +181,16 @@ router.post("/vtu/n3tdata", async function (req, res) {
         const { status, 'request-id': id, response } = req.body;
         const id_data = id.split('_');
         const billId = id_data[1];
-        const uid = id_data[2];
-        console.log(billId, uid);
+        // const uid = id_data[2];
+        console.log(billId);
 
         let billDoc = await db.collection('bills').doc(billId).get();
         await billDoc.ref.update({
             'status': status
         });
+
+        const uid = billDoc.get('uid');
+        console.log(uid);
 
         let customerUserDoc = await db.collection('users').doc(uid).get();
         let fcm_token = customerUserDoc.get('fcm_token');
