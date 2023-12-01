@@ -164,6 +164,7 @@
         },
         {
             "id": 48,
+            "network_id": 2,
             "plan_network": "AIRTEL",
             "plan_type": "COOPERATE GIFTING",
             "plan": "2GB",
@@ -257,7 +258,7 @@
             "plan_network": "GLO",
             "plan_type": "COOPERATE GIFTING",
             "plan": "500MB",
-            "plan_amount": 108.00,
+            "plan_amount": 120.00,
             "validity": "1 Month"
         },
         {
@@ -266,7 +267,7 @@
             "plan_network": "GLO",
             "plan_type": "COOPERATE GIFTING",
             "plan": "1GB",
-            "plan_amount": 210.00,
+            "plan_amount": 220.00,
             "validity": "1 Month"
         },
         {
@@ -275,7 +276,7 @@
             "plan_network": "GLO",
             "plan_type": "COOPERATE GIFTING",
             "plan": "2GB",
-            "plan_amount": 420.00,
+            "plan_amount": 440.00,
             "validity": "1 Month"
         },
         {
@@ -284,7 +285,7 @@
             "plan_network": "GLO",
             "plan_type": "COOPERATE GIFTING",
             "plan": "3GB",
-            "plan_amount": 630.00,
+            "plan_amount": 660.00,
             "validity": "1 Month"
         },
         {
@@ -293,7 +294,7 @@
             "plan_network": "GLO",
             "plan_type": "COOPERATE GIFTING",
             "plan": "5GB",
-            "plan_amount": 1050.00,
+            "plan_amount": 1100.00,
             "validity": "1 Month"
         },
         {
@@ -302,7 +303,88 @@
             "plan_network": "GLO",
             "plan_type": "COOPERATE GIFTING",
             "plan": "10GB",
-            "plan_amount": 2150.00,
+            "plan_amount": 2200.00,
+            "validity": "1 Month"
+        },
+        {
+            "id": 66,
+            "network_id": 1,
+            "plan_network": "MTN",
+            "plan_type": "GIFTING",
+            "plan": "2GB",
+            "plan_amount": 480.00,
+            "validity": "1 Month"
+        },
+        {
+            "id": 70,
+            "network_id": 2,
+            "plan_network": "AIRTEL",
+            "plan_type": "COOPERATE GIFTING",
+            "plan": "300MB",
+            "plan_amount": 85.00,
+            "validity": "1 Month"
+        },
+        {
+            "id": 71,
+            "network_id": 2,
+            "plan_network": "AIRTEL",
+            "plan_type": "COOPERATE GIFTING",
+            "plan": "100MB",
+            "plan_amount": 30.00,
+            "validity": "1 Month"
+        },
+        {
+            "id": 72,
+            "network_id": 4,
+            "plan_network": "9MOBILE",
+            "plan_type": "COOPERATE GIFTING",
+            "plan": "500MB",
+            "plan_amount": 90.00,
+            "validity": "1 Month"
+        },
+        {
+            "id": 73,
+            "network_id": 4,
+            "plan_network": "9MOBILE",
+            "plan_type": "COOPERATE GIFTING",
+            "plan": "1GB",
+            "plan_amount": 170.00,
+            "validity": "1 Month"
+        },
+        {
+            "id": 74,
+            "network_id": 4,
+            "plan_network": "9MOBILE",
+            "plan_type": "COOPERATE GIFTING",
+            "plan": "2GB",
+            "plan_amount": 340.00,
+            "validity": "1 Month"
+        },
+        {
+            "id": 75,
+            "network_id": 4,
+            "plan_network": "9MOBILE",
+            "plan_type": "COOPERATE GIFTING",
+            "plan": "3GB",
+            "plan_amount": 510.00,
+            "validity": "1 Month"
+        },
+        {
+            "id": 76,
+            "network_id": 4,
+            "plan_network": "9MOBILE",
+            "plan_type": "COOPERATE GIFTING",
+            "plan": "5GB",
+            "plan_amount": 850.00,
+            "validity": "1 Month"
+        },
+        {
+            "id": 77,
+            "network_id": 4,
+            "plan_network": "9MOBILE",
+            "plan_type": "COOPERATE GIFTING",
+            "plan": "10GB",
+            "plan_amount": 1700.00,
             "validity": "1 Month"
         }
     ],
