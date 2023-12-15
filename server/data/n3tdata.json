@@ -33,7 +33,7 @@
             "plan_network": "MTN",
             "plan_type": "SME",
             "plan": "1GB",
-            "plan_amount": 245.00,
+            "plan_amount": 250.00,
             "validity": "    1 Month"
         },
         {
@@ -42,7 +42,7 @@
             "plan_network": "MTN",
             "plan_type": "SME",
             "plan": "2GB",
-            "plan_amount": 490.00,
+            "plan_amount": 500.00,
             "validity": "    1 Month"
         },
         {
@@ -51,7 +51,7 @@
             "plan_network": "MTN",
             "plan_type": "SME",
             "plan": "3GB",
-            "plan_amount": 735.00,
+            "plan_amount": 750.00,
             "validity": "    1 Month"
         },
         {
@@ -60,7 +60,7 @@
             "plan_network": "MTN",
             "plan_type": "SME",
             "plan": "5GB",
-            "plan_amount": 1225.00,
+            "plan_amount": 1250.00,
             "validity": "1 Month"
         },
         {
@@ -69,7 +69,7 @@
             "plan_network": "MTN",
             "plan_type": "SME",
             "plan": "10GB",
-            "plan_amount": 2450.00,
+            "plan_amount": 2500.00,
             "validity": "1 Month"
         },
         {
@@ -186,7 +186,7 @@
             "plan_network": "MTN",
             "plan_type": "COOPERATE GIFTING",
             "plan": "500MB",
-            "plan_amount": 120.00,
+            "plan_amount": 130.00,
             "validity": "    1 Month"
         },
         {
@@ -195,7 +195,7 @@
             "plan_network": "MTN",
             "plan_type": "COOPERATE GIFTING",
             "plan": "1GB",
-            "plan_amount": 250.00,
+            "plan_amount": 260.00,
             "validity": "    1 Month"
         },
         {
@@ -204,7 +204,7 @@
             "plan_network": "MTN",
             "plan_type": "COOPERATE GIFTING",
             "plan": "2GB",
-            "plan_amount": 500.00,
+            "plan_amount": 520.00,
             "validity": "    1 Month"
         },
         {
@@ -213,7 +213,7 @@
             "plan_network": "MTN",
             "plan_type": "COOPERATE GIFTING",
             "plan": "3GB",
-            "plan_amount": 750.00,
+            "plan_amount": 780.00,
             "validity": "    1 Month"
         },
         {
@@ -222,7 +222,7 @@
             "plan_network": "MTN",
             "plan_type": "COOPERATE GIFTING",
             "plan": "5GB",
-            "plan_amount": 1250.00,
+            "plan_amount": 1300.00,
             "validity": "1 Month"
         },
         {
@@ -231,7 +231,7 @@
             "plan_network": "MTN",
             "plan_type": "COOPERATE GIFTING",
             "plan": "10GB",
-            "plan_amount": 2500.00,
+            "plan_amount": 2600.00,
             "validity": "1 Month"
         },
         {
