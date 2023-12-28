@@ -184,6 +184,8 @@ router.post("/vtu/n3tdata", async function (req, res) {
         // const uid = id_data[2];
         console.log(billId);
 
+        return;
+
         let billDoc = await db.collection('bills').doc(billId).get();
         await billDoc.ref.update({
             'status': status
