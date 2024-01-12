@@ -33,7 +33,7 @@
             "plan_network": "MTN",
             "plan_type": "SME",
             "plan": "1GB",
-            "plan_amount": 255.00,
+            "plan_amount": 256.00,
             "validity": "    1 Month"
         },
         {
@@ -42,7 +42,7 @@
             "plan_network": "MTN",
             "plan_type": "SME",
             "plan": "2GB",
-            "plan_amount": 510.00,
+            "plan_amount": 512.00,
             "validity": "    1 Month"
         },
         {
@@ -51,7 +51,7 @@
             "plan_network": "MTN",
             "plan_type": "SME",
             "plan": "3GB",
-            "plan_amount": 765.00,
+            "plan_amount": 768.00,
             "validity": "    1 Month"
         },
         {
@@ -60,7 +60,7 @@
             "plan_network": "MTN",
             "plan_type": "SME",
             "plan": "5GB",
-            "plan_amount": 1275.00,
+            "plan_amount": 1280.00,
             "validity": "1 Month"
         },
         {
@@ -69,7 +69,7 @@
             "plan_network": "MTN",
             "plan_type": "SME",
             "plan": "10GB",
-            "plan_amount": 2550.00,
+            "plan_amount": 2560.00,
             "validity": "1 Month"
         },
         {
