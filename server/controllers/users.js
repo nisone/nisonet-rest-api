@@ -53,6 +53,42 @@ const registerUser = (req, res) => {
         });
 }
 
+const userLogin = (req, res) => {
+    const { email, password } = req.body;
+
+    if (email == undefined) {
+        res.status(400).json({
+            message: 'User email is required'
+        });
+    }
+
+    if (password == undefined) {
+        res.status(400).json({
+            message: 'Password is undefined'
+        });
+    }
+
+    plainPassword = Buffer.from(password, 'base64').toString('utf8');
+    const encodedPassword = Buffer.from('email:plainPassword', 'utf8').toString('base64');
+
+    getAuth().getUserByEmail(email).then((user) => {
+        console.log(user.customClaims);
+    });
+
+    getAuth()
+        .createCustomToken(encodedPassword) // Create custom auth token for the
+        .then((token) => {
+            console.log('custom token:', token);
+            return res.status(200).json({ token });
+        })
+        .catch((error) => {
+            console.log('Error creating new user:', error);
+            res.status(400).json({
+                message: `Error creating custom token: ${error}`
+            });
+        });
+}
+
 const updateUser = async (req, res) => {
     var uid = req.body.uid;
     var email = req.body.email;
@@ -104,6 +140,27 @@ const updateUser = async (req, res) => {
             });
         });
 }
+const assignAdmin = (req, res) => {
+    const email = req.body.email;
+    grantAdminRole(email).then(() => {
+        return res.status(200).json({
+            result: `Request fulfilled! ${email} is now a
+                admin.`
+        });
+    }).catch((error) => {
+        console.error(error);
+        res.status(500).json({ result: 'Request not fulfilled!' });
+    });
+}
+
+async function grantAdminRole(email) {
+    const user = await getUserByEmail(email);
+    if (user.customClaims && user.customClaims.admin === true) {
+        return;
+    }
+
+    return getAuth().setCustomUserClaims(user.uid, { admin: true });
+}
 
 const deleteUser = (req, res) => {
     var uid = req.body.uid;
@@ -149,4 +206,4 @@ function getAuth() {
     return admin.auth();
 }
 
-module.exports = { registerUser, updateUser, deleteUser, getUserByUID, getUserByEmail };
+module.exports = { assignAdmin, userLogin, registerUser, updateUser, deleteUser, getUserByUID, getUserByEmail };
