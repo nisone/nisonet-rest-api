@@ -3,5 +3,11 @@
   "cleanUrls": true,
   "installCommand": "npm install",
   "devCommand": "npm run dev",
-  "buildCommand": "npm install"
+  "buildCommand": "npm install",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/api"
+    }
+  ]
 }
