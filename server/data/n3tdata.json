@@ -24,7 +24,7 @@
             "plan_network": "MTN",
             "plan_type": "SME",
             "plan": "500MB",
-            "plan_amount": 128.00,
+            "plan_amount": 130.00,
             "validity": "    1 Month"
         },
         {
@@ -33,7 +33,7 @@
             "plan_network": "MTN",
             "plan_type": "SME",
             "plan": "1GB",
-            "plan_amount": 256.00,
+            "plan_amount": 260.00,
             "validity": "    1 Month"
         },
         {
@@ -42,7 +42,7 @@
             "plan_network": "MTN",
             "plan_type": "SME",
             "plan": "2GB",
-            "plan_amount": 512.00,
+            "plan_amount": 520.00,
             "validity": "    1 Month"
         },
         {
@@ -51,7 +51,7 @@
             "plan_network": "MTN",
             "plan_type": "SME",
             "plan": "3GB",
-            "plan_amount": 768.00,
+            "plan_amount": 780.00,
             "validity": "    1 Month"
         },
         {
@@ -60,7 +60,7 @@
             "plan_network": "MTN",
             "plan_type": "SME",
             "plan": "5GB",
-            "plan_amount": 1280.00,
+            "plan_amount": 1300.00,
             "validity": "1 Month"
         },
         {
@@ -69,7 +69,7 @@
             "plan_network": "MTN",
             "plan_type": "SME",
             "plan": "10GB",
-            "plan_amount": 2560.00,
+            "plan_amount": 2600.00,
             "validity": "1 Month"
         },
         {
@@ -150,7 +150,7 @@
             "plan_network": "AIRTEL",
             "plan_type": "COOPERATE GIFTING",
             "plan": "500MB",
-            "plan_amount": 110.00,
+            "plan_amount": 137.00,
             "validity": "    1 Month"
         },
         {
@@ -159,7 +159,7 @@
             "plan_network": "AIRTEL",
             "plan_type": "COOPERATE GIFTING",
             "plan": "1GB",
-            "plan_amount": 210.00,
+            "plan_amount": 275.00,
             "validity": "    1 Month"
         },
         {
@@ -168,7 +168,7 @@
             "plan_network": "AIRTEL",
             "plan_type": "COOPERATE GIFTING",
             "plan": "2GB",
-            "plan_amount": 420.00,
+            "plan_amount": 550.00,
             "validity": "    1 Month"
         },
         {
@@ -177,7 +177,7 @@
             "plan_network": "AIRTEL",
             "plan_type": "COOPERATE GIFTING",
             "plan": "5GB",
-            "plan_amount": 1100.00,
+            "plan_amount": 1375.00,
             "validity": "    1 Month"
         },
         {
@@ -240,7 +240,7 @@
             "plan_network": "AIRTEL",
             "plan_type": "COOPERATE GIFTING",
             "plan": "10GB",
-            "plan_amount": 2150.00,
+            "plan_amount": 2750.00,
             "validity": "1 Month"
         },
         {
@@ -267,7 +267,7 @@
             "plan_network": "GLO",
             "plan_type": "COOPERATE GIFTING",
             "plan": "1GB",
-            "plan_amount": 230.00,
+            "plan_amount": 235.00,
             "validity": "1 Month"
         },
         {
@@ -276,7 +276,7 @@
             "plan_network": "GLO",
             "plan_type": "COOPERATE GIFTING",
             "plan": "2GB",
-            "plan_amount": 460.00,
+            "plan_amount": 470.00,
             "validity": "1 Month"
         },
         {
@@ -285,7 +285,7 @@
             "plan_network": "GLO",
             "plan_type": "COOPERATE GIFTING",
             "plan": "3GB",
-            "plan_amount": 690.00,
+            "plan_amount": 705.00,
             "validity": "1 Month"
         },
         {
@@ -294,7 +294,7 @@
             "plan_network": "GLO",
             "plan_type": "COOPERATE GIFTING",
             "plan": "5GB",
-            "plan_amount": 1150.00,
+            "plan_amount": 1175.00,
             "validity": "1 Month"
         },
         {
@@ -303,7 +303,7 @@
             "plan_network": "GLO",
             "plan_type": "COOPERATE GIFTING",
             "plan": "10GB",
-            "plan_amount": 2300.00,
+            "plan_amount": 2350.00,
             "validity": "1 Month"
         },
         {
