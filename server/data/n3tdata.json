@@ -150,7 +150,7 @@
             "plan_network": "AIRTEL",
             "plan_type": "COOPERATE GIFTING",
             "plan": "500MB",
-            "plan_amount": 137.00,
+            "plan_amount": 250.00,
             "validity": "    1 Month"
         },
         {
@@ -159,7 +159,7 @@
             "plan_network": "AIRTEL",
             "plan_type": "COOPERATE GIFTING",
             "plan": "1GB",
-            "plan_amount": 275.00,
+            "plan_amount": 500.00,
             "validity": "    1 Month"
         },
         {
@@ -168,7 +168,7 @@
             "plan_network": "AIRTEL",
             "plan_type": "COOPERATE GIFTING",
             "plan": "2GB",
-            "plan_amount": 550.00,
+            "plan_amount": 1000.00,
             "validity": "    1 Month"
         },
         {
@@ -177,7 +177,7 @@
             "plan_network": "AIRTEL",
             "plan_type": "COOPERATE GIFTING",
             "plan": "5GB",
-            "plan_amount": 1375.00,
+            "plan_amount": 2500.00,
             "validity": "    1 Month"
         },
         {
@@ -240,7 +240,7 @@
             "plan_network": "AIRTEL",
             "plan_type": "COOPERATE GIFTING",
             "plan": "10GB",
-            "plan_amount": 2750.00,
+            "plan_amount": 5000.00,
             "validity": "1 Month"
         },
         {
@@ -258,7 +258,7 @@
             "plan_network": "GLO",
             "plan_type": "COOPERATE GIFTING",
             "plan": "500MB",
-            "plan_amount": 120.00,
+            "plan_amount": 135.00,
             "validity": "1 Month"
         },
         {
@@ -267,7 +267,7 @@
             "plan_network": "GLO",
             "plan_type": "COOPERATE GIFTING",
             "plan": "1GB",
-            "plan_amount": 235.00,
+            "plan_amount": 270.00,
             "validity": "1 Month"
         },
         {
@@ -276,7 +276,7 @@
             "plan_network": "GLO",
             "plan_type": "COOPERATE GIFTING",
             "plan": "2GB",
-            "plan_amount": 470.00,
+            "plan_amount": 540.00,
             "validity": "1 Month"
         },
         {
@@ -285,7 +285,7 @@
             "plan_network": "GLO",
             "plan_type": "COOPERATE GIFTING",
             "plan": "3GB",
-            "plan_amount": 705.00,
+            "plan_amount": 810.00,
             "validity": "1 Month"
         },
         {
@@ -294,7 +294,7 @@
             "plan_network": "GLO",
             "plan_type": "COOPERATE GIFTING",
             "plan": "5GB",
-            "plan_amount": 1175.00,
+            "plan_amount": 1350.00,
             "validity": "1 Month"
         },
         {
@@ -303,7 +303,7 @@
             "plan_network": "GLO",
             "plan_type": "COOPERATE GIFTING",
             "plan": "10GB",
-            "plan_amount": 2350.00,
+            "plan_amount": 2700.00,
             "validity": "1 Month"
         },
         {
@@ -321,7 +321,7 @@
             "plan_network": "AIRTEL",
             "plan_type": "COOPERATE GIFTING",
             "plan": "300MB",
-            "plan_amount": 85.00,
+            "plan_amount": 220.00,
             "validity": "1 Month"
         },
         {
@@ -330,7 +330,7 @@
             "plan_network": "AIRTEL",
             "plan_type": "COOPERATE GIFTING",
             "plan": "100MB",
-            "plan_amount": 30.00,
+            "plan_amount": 80.00,
             "validity": "1 Month"
         },
         {
